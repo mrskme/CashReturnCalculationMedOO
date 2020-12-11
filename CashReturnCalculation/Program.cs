@@ -7,8 +7,8 @@ namespace CashReturnCalculation
     {
         static void Main(string[] args)
         {
-            var CashReturnCalculationWithOO = new CashReturnCalculationWithOO();
-            CashReturnCalculationWithOO.Run();
+            var cashReturnCalculation = new CashReturnCalculationWithOO();
+            cashReturnCalculation.Run();
         }
 
     }

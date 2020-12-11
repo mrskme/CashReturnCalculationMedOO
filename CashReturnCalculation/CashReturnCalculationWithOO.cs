@@ -7,10 +7,10 @@ namespace CashReturnCalculation
 {
     class CashReturnCalculationWithOO
     {
-        private List<CashItem> CashValues;
+        private readonly List<CashItem> _cashValues;
         public CashReturnCalculationWithOO()
         {
-            CashValues = new List<CashItem>
+            _cashValues = new List<CashItem>
             {
                 new CashItem(1, true),
                 new CashItem(5, true),
@@ -25,17 +25,15 @@ namespace CashReturnCalculation
         }
         public void Run()
         {
-            //int[] cashItemValues = { 1, 5, 10, 20, 50, 100, 200, 500, 1000 };
-            //bool[] cashItemIsCoin = { true, true, true, true, false, false, false, false, false };
             Console.WriteLine("Hvor mye skal det betales? ");
             var paymentAmountString = Console.ReadLine();
             var paymentAmount = Convert.ToInt32(paymentAmountString);
-            var cashItemCounts = AcceptPayment(CashValues, paymentAmount);
+            var cashItemCounts = AcceptPayment(_cashValues, paymentAmount);
 
-            var paidAmount = SumAmount(cashItemCounts, CashValues);
+            var paidAmount = SumAmount(cashItemCounts, _cashValues);
             Console.WriteLine($"Du har betalt {paidAmount}kr.");
             var returnAmount = paidAmount - paymentAmount;
-            ShowReturnAmount(returnAmount, CashValues);
+            ShowReturnAmount(returnAmount, _cashValues);
         }
 
         private void ShowReturnAmount(int returnAmount, List<CashItem> cashItems)
@@ -49,7 +47,7 @@ namespace CashReturnCalculation
                 if (count > 0)
                 {
                     remaining -= count * cashItem.Value;
-                    Console.WriteLine($" - {count}x{cashItem}kr");
+                    Console.WriteLine($" - {count}x{cashItem.Value}kr");
                 }
             }
         }
@@ -73,8 +71,7 @@ namespace CashReturnCalculation
                 var isSuccessCashItem = int.TryParse(cashItemString, out int cashItem);
 
                 if (!isSuccessCashItem) continue;
-                //var cashItemIndex = Array.IndexOf(cashItems, cashItems);
-                int cashItemIndex = cashItems.FindIndex(V => V.Value == cashItem);
+                var cashItemIndex = cashItems.FindIndex(V => V.Value == cashItem);
 
                 if (cashItemIndex == -1) continue;
                 cashItemCounts[cashItemIndex] += count;
