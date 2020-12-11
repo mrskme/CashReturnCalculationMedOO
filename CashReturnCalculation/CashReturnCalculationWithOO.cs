@@ -7,10 +7,10 @@ namespace CashReturnCalculation
 {
     class CashReturnCalculationWithOO
     {
-        private readonly List<CashItem> _cashValues;
+        private readonly List<CashItem> _cashItems;
         public CashReturnCalculationWithOO()
         {
-            _cashValues = new List<CashItem>
+            _cashItems = new List<CashItem>
             {
                 new CashItem(1, true),
                 new CashItem(5, true),
@@ -22,25 +22,25 @@ namespace CashReturnCalculation
                 new CashItem(500, false),
                 new CashItem(1000, false),
             };
+            _cashItems.Reverse();
         }
         public void Run()
         {
             Console.WriteLine("Hvor mye skal det betales? ");
             var paymentAmountString = Console.ReadLine();
             var paymentAmount = Convert.ToInt32(paymentAmountString);
-            var cashItemCounts = AcceptPayment(_cashValues, paymentAmount);
-
-            var paidAmount = SumAmount(cashItemCounts, _cashValues);
+            //var payment = new Payment();
+            var cashItemCounts = AcceptPayment(_cashItems, paymentAmount);
+            var paidAmount = SumAmount(cashItemCounts, _cashItems);
             Console.WriteLine($"Du har betalt {paidAmount}kr.");
             var returnAmount = paidAmount - paymentAmount;
-            ShowReturnAmount(returnAmount, _cashValues);
+            ShowReturnAmount(returnAmount, _cashItems);
         }
 
         private void ShowReturnAmount(int returnAmount, List<CashItem> cashItems)
         {
             Console.WriteLine($"Du skal få tilbake {returnAmount}kr:");
             var remaining = returnAmount;
-            cashItems.Reverse();
             foreach (var cashItem in cashItems)
             {
                 var count = remaining / cashItem.Value;
