@@ -33,8 +33,8 @@ namespace CashReturnCalculation
             var paymentAmountString = Console.ReadLine();
             var paymentAmount = Convert.ToInt32(paymentAmountString);
             //var cashItemCounts = AcceptPayment(_cashItems, paymentAmount);
-            var Payment = AcceptPayment(_cashItems, paymentAmount);
-            var paidAmount = Payment.SumAmount();
+            var paidAmount = AcceptPayment(_cashItems, paymentAmount).SumAmount();
+            //var paidAmount = Payment.SumAmount();
             Console.WriteLine($"Betaling godkjent. Du har betalt {paidAmount}kr.");
             var returnAmount = paidAmount - paymentAmount;
             ShowReturnAmount(returnAmount, _cashItems);
