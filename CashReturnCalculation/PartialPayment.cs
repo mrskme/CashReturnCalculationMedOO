@@ -6,8 +6,22 @@ namespace CashReturnCalculation
 {
     class PartialPayment
     {
-        public CashItem CashItem;
-        public int Count;
+        private CashItem CashItem;
+        private int Count;
+
+        public int GetCount()
+        {
+            return Count;
+        }
+
+        public CashItem GetCashItem()
+        {
+            return CashItem;
+        }
+        public int GetValue()
+        {
+            return Count * CashItem.Value;
+        }
 
         public PartialPayment(CashItem cashItem, int count)
         {
