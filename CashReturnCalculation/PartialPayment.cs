@@ -6,13 +6,13 @@ namespace CashReturnCalculation
 {
     class PartialPayment
     {
-        private CashItem _cashItem;
-        private int _amount;
+        public CashItem CashItem;
+        public int Count;
 
-        public PartialPayment(CashItem cashItem, int amount)
+        public PartialPayment(CashItem cashItem, int count)
         {
-            _cashItem = cashItem;
-            _amount = amount;
+            CashItem = cashItem;
+            Count = count;
         }
     }
 }

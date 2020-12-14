@@ -8,6 +8,7 @@ namespace CashReturnCalculation
     class CashReturnCalculationWithOO
     {
         private readonly List<CashItem> _cashItems;
+        private List<PartialPayment> PartialPayments;
         public CashReturnCalculationWithOO()
         {
             _cashItems = new List<CashItem>
@@ -22,6 +23,7 @@ namespace CashReturnCalculation
                 new CashItem(500, false),
                 new CashItem(1000, false),
             };
+            PartialPayments = new List<PartialPayment>();
             _cashItems.Reverse();
         }
         public void Run()
@@ -29,7 +31,6 @@ namespace CashReturnCalculation
             Console.WriteLine("Hvor mye skal det betales? ");
             var paymentAmountString = Console.ReadLine();
             var paymentAmount = Convert.ToInt32(paymentAmountString);
-            //var payment = new Payment();
             var cashItemCounts = AcceptPayment(_cashItems, paymentAmount);
             var paidAmount = SumAmount(cashItemCounts, _cashItems);
             Console.WriteLine($"Du har betalt {paidAmount}kr.");
@@ -72,10 +73,16 @@ namespace CashReturnCalculation
 
                 if (!isSuccessCashItem) continue;
                 var cashItemIndex = cashItems.FindIndex(V => V.Value == cashItem);
+                var chosenCashItem = cashItems.FirstOrDefault(v => v.Value == cashItem);
 
                 if (cashItemIndex == -1) continue;
                 cashItemCounts[cashItemIndex] += count;
-                sumAmount = SumAmount(cashItemCounts, cashItems);
+                //sumAmount = SumAmount(cashItemCounts, cashItems);
+
+                PartialPayment partialPayment = new PartialPayment(chosenCashItem, count);
+                PartialPayments.Add(partialPayment);
+                Payment payment = new Payment(PartialPayments);
+                sumAmount = payment.SumAmount();
 
                 Console.WriteLine($"Du har betalt {sumAmount}kr.");
             } while (sumAmount < paymentAmount);
@@ -83,12 +90,12 @@ namespace CashReturnCalculation
             return cashItemCounts;
         }
 
-        public int SumAmount(int[] countOfCashItem, List<CashItem> cashItemValues)
+        public int SumAmount(int[] countOfCashItem, List<CashItem> cashItems)
         {
             var sum = 0;
             for (var i = 0; i < countOfCashItem.Length; i++)
             {
-                sum += countOfCashItem[i] * cashItemValues[i].Value;
+                sum += countOfCashItem[i] * cashItems[i].Value;
             }
             return sum;
         }

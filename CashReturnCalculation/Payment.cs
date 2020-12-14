@@ -6,11 +6,21 @@ namespace CashReturnCalculation
 {
     class Payment
     {
-        private PartialPayment[] _payment;
+        private List<PartialPayment> _payments;
 
-        public Payment(PartialPayment[] payment)
+        public Payment(List<PartialPayment> payment)
         {
-            _payment = payment;
+            _payments = payment;
+        }
+
+        public int SumAmount()
+        {
+            var sum = 0;
+            for (var i = 0; i < _payments.Count; i++)
+            {
+                sum += _payments[i].Count * _payments[i].CashItem.Value;
+            }
+            return sum;
         }
     }
 }
