@@ -35,7 +35,7 @@ namespace CashReturnCalculation
             //var cashItemCounts = AcceptPayment(_cashItems, paymentAmount);
             var Payment = AcceptPayment(_cashItems, paymentAmount);
             var paidAmount = Payment.SumAmount();
-            Console.WriteLine($"Du har betalt {paidAmount}kr.");
+            Console.WriteLine($"Betaling godkjent. Du har betalt {paidAmount}kr.");
             var returnAmount = paidAmount - paymentAmount;
             ShowReturnAmount(returnAmount, _cashItems);
         }
@@ -57,7 +57,7 @@ namespace CashReturnCalculation
 
         private Payment AcceptPayment(List<CashItem> cashItems, int paymentAmount)
         {
-            var cashItemCounts = new int[9];
+            //var cashItemCounts = new int[9];
             var sumAmount = 0;
             do
             {
@@ -74,11 +74,11 @@ namespace CashReturnCalculation
                 var isSuccessCashItem = int.TryParse(cashItemString, out int cashItem);
 
                 if (!isSuccessCashItem) continue;
-                var cashItemIndex = cashItems.FindIndex(V => V.Value == cashItem);
+                //var cashItemIndex = cashItems.FindIndex(V => V.Value == cashItem);
                 var chosenCashItem = cashItems.FirstOrDefault(v => v.Value == cashItem);
 
-                if (cashItemIndex == -1) continue;
-                cashItemCounts[cashItemIndex] += count;
+                if (chosenCashItem == null) continue;
+                //cashItemCounts[cashItemIndex] += count;
                 //sumAmount = SumAmount(cashItemCounts, cashItems);
 
                 PartialPayment partialPayment = new PartialPayment(chosenCashItem, count);
