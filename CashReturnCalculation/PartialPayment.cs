@@ -13,7 +13,6 @@ namespace CashReturnCalculation
         {
             return Count;
         }
-
         public CashItem GetCashItem()
         {
             return CashItem;

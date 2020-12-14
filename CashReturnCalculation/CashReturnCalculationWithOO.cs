@@ -45,7 +45,7 @@ namespace CashReturnCalculation
         private Payment AcceptPayment(List<CashItem> cashItems, int paymentAmount)
         {
             var payment = new Payment();
-            int sumAmount = 0;
+            int sumAmount;
             do
             {
                 Console.Write("Angi betaling (eks: 7x5kr betyr sju femkroner): ");

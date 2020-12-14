@@ -44,7 +44,7 @@ namespace CashReturnCalculation
         {
             foreach (var payment in _payments)
             {
-                Console.WriteLine($"- {payment.GetCount()} {payment.GetCashItem().Value}kr");
+                Console.WriteLine($"- {payment.GetCount()}x{payment.GetCashItem().Value}kr");
             }
         }
 
